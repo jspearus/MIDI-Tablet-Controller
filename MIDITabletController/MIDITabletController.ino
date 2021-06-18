@@ -42,9 +42,13 @@ void loop() {
   if(channel == Channel && note == Full_note && velocity >= Velocity_thresh ){            //note = command for "full"
     //Serial.println("test");
     home();
-  for (int i=0; i<100; i++) {
-     Mouse.move(1, 2);
-     delay(2);
+  for (int i=0; i<20; i++) {  // move Horizontal
+     Mouse.move(3, 0);
+     //delay(2);
+   }
+   for (int i=0; i<60; i++) {  // Move Verticl
+     Mouse.move(0, 3);
+     //delay(2);
    }
    delay(25);
       Mouse.press();
@@ -57,9 +61,12 @@ void loop() {
    else if(channel == Channel && note == Worship_note && velocity >= Velocity_thresh){            //note = command for "Worship"
     //Serial.println("test");
     home();
-  for (int i=0; i<70; i++) {
-    Mouse.move(3, 2);
-
+  for (int i=0; i<100; i++){    // move Horizontal
+    Mouse.move(3, 0);
+  }
+  
+  for (int i=0; i<60; i++) {   // Move Verticl
+    Mouse.move(0, 3);
   }
   delay(25);
       Mouse.press();
