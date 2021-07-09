@@ -40,12 +40,12 @@ void loop() {
   }
   
   if(channel == Channel && note == Full_note && velocity >= Velocity_thresh ){            //note = command for "full"
-    //Serial.println("test");
+    //Serial.println("Full");
     moveCursor(15, 45, 3);
   }
   
    else if(channel == Channel && note == Worship_note && velocity >= Velocity_thresh){            //note = command for "Worship"
-    //Serial.println("test");
+    //Serial.println("Worship");
     moveCursor(63, 47, 3);
    }
 }
@@ -53,7 +53,7 @@ void loop() {
 void home(){
   int i;
     for (i=0; i<50; i++) {
-     Mouse.move(-127, -127);
+h     Mouse.move(-127, -127);
    }
 }
 
