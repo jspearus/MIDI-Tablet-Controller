@@ -10,18 +10,23 @@
 
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
 
+// MIDI Channel and Note Setup ##############
 const int Channel = 2;
 const int Full_note = 75;
 const int Worship_note = 65;
 const int Velocity_thresh = 90;
+//###########################################
 
-
+//Variables
 int type, note, velocity, channel, d1, d2;
 
+//Function Declarations #############################
 void home();
 void moveCursor(int x, int y, int v);
 void leftClick();
 void printData();
+//#######################################
+
 
 void setup() {
   MIDI.begin(MIDI_CHANNEL_OMNI);
@@ -31,6 +36,8 @@ void setup() {
   delay(2000);
   Serial.println("MIDI Tablet Controller Ready...");
   } 
+
+// Main Program Loop########################################
 void loop() {
   if (MIDI.read()){
     byte type = MIDI.getType();
@@ -45,17 +52,21 @@ void loop() {
         break;
     }
   }
-  
-  if(channel == Channel && note == Full_note && velocity >= Velocity_thresh ){            //note = command for "full"
+  //note = command for "full"
+  if(channel == Channel && note == Full_note && velocity >= Velocity_thresh ){            
     //Serial.println("Full");
-    moveCursor(15, 45, 3);
+    moveCursor(15, 45, 3);  // move(x,y,v)
   }
-  
-   else if(channel == Channel && note == Worship_note && velocity >= Velocity_thresh){            //note = command for "Worship"
+  //note = command for "Worship"
+  else if(channel == Channel && note == Worship_note && velocity >= Velocity_thresh){            
     //Serial.println("Worship");
-    moveCursor(63, 47, 3);
-   }
+    moveCursor(63, 47, 3); // move(x,y,v)
+  }
 }
+ //END Main Loop ###########################################
+
+
+//Functions-------------------------------------------------
 
 void home(){
   int i;
@@ -66,11 +77,10 @@ void home(){
 
 void moveCursor(int x, int y, int v){
   home();
-  for (int i=0; i<x; i++){    // move Horizontal
+  for (int i=0; i<x; i++){    // move Horizontal - X AXIS
     Mouse.move(v, 0);
-  }
-  
-  for (int i=0; i<y; i++) {   // Move Verticl
+  } 
+  for (int i=0; i<y; i++) {   // Move Verticl - Y AXIS
     Mouse.move(0, v);
   }
   delay(25);
@@ -84,10 +94,11 @@ void leftClick(){
   Mouse.release();
   delay(250);
 }
+
 void printData(){
   if (velocity > 0) {
-          Serial.println(String("Note On:  ch=") + channel + ", note=" + note + ", velocity=" + velocity);
-        } else {
-          Serial.println(String("Note Off: ch=") + channel + ", note=" + note);
-        }
+    Serial.println(String("Note On:  ch=") + channel + ", note=" + note + ", velocity=" + velocity);
+  } else {
+    Serial.println(String("Note Off: ch=") + channel + ", note=" + note);
+  }
 }
