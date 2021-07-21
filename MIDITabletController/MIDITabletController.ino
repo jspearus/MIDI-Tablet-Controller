@@ -48,19 +48,21 @@ void loop() {
         velocity = MIDI.getData2();
         channel = MIDI.getChannel();
         channel = channel-1;
-        //printData();
+        printData();  /////////UnComment to see Serial data--------
         break;
     }
   }
   //note = command for "full"
   if(channel == Channel && note == Full_note && velocity >= Velocity_thresh ){            
-    //Serial.println("Full");
-    moveCursor(15, 45, 3);  // move(x,y,v)
+    Serial.println("Full");
+    //moveCursor(15, 45, 3);  // move(x,y,v)
+    note = 0;
   }
   //note = command for "Worship"
   else if(channel == Channel && note == Worship_note && velocity >= Velocity_thresh){            
-    //Serial.println("Worship");
-    moveCursor(63, 47, 3); // move(x,y,v)
+    Serial.println("Worship");
+    //moveCursor(63, 47, 3); // move(x,y,v)
+    note = 0;
   }
 }
  //END Main Loop ###########################################
