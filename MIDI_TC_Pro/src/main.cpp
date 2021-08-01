@@ -111,7 +111,7 @@ void BluetoothOut(int x, int y, int xStep, int yStep){
 
 void home(){
   int i;
-    for (i=0; i<50; i++) {
+    for (i=0; i<15; i++) {
      Mouse.move(-127, -127);
    }
 }
@@ -124,7 +124,6 @@ void moveCursor(int x, int y, int v){
   for (int i=0; i<y; i++) {   // Move Verticl - Y AXIS
     Mouse.move(0, v);
   }
-  delay(25);
   leftClick();
   note = 0;
 }
@@ -133,5 +132,4 @@ void leftClick(){
   Mouse.press();
   delay(100);
   Mouse.release();
-  delay(250);
 }
