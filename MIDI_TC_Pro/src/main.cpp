@@ -22,7 +22,7 @@ bool BluMode = true;
 
 // Function Declarations #############################
 void printData();
-void BluetoothOut(int x, int y, int xStep, int yStep);
+void BluetoothOut(int x, int y, int xStep, int yStep, int hStep);
 void home();
 void moveCursor(int x, int y, int v);
 void leftClick();
@@ -65,7 +65,7 @@ void loop() {
       moveCursor(15, 45, 3);  // move(x,y,v)
     }
     else if(BluMode == true){
-      BluetoothOut(5, 15, 15, 10);  // Bluetooth(x, y, xStep, yStep)
+      BluetoothOut(5, 15, 15, 10, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
     }
     note = 0;
   }
@@ -76,7 +76,7 @@ void loop() {
       moveCursor(63, 47, 3); // move(x,y,v)
     }
     else if(BluMode == true){
-      BluetoothOut(21, 16, 15, 10);  // Bluetooth(x, y, xStep, yStep)
+      BluetoothOut(21, 16, 15, 10, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
     }
     note = 0;
   }
@@ -96,7 +96,7 @@ void printData(){
   }
 }
 
-void BluetoothOut(int x, int y, int xStep, int yStep){
+void BluetoothOut(int x, int y, int xStep, int yStep, int hStep){
   Wire.beginTransmission(9);
   Wire.print(x);
   Wire.print("@");
@@ -105,6 +105,8 @@ void BluetoothOut(int x, int y, int xStep, int yStep){
   Wire.print(xStep);
   Wire.print("&");
   Wire.print(yStep);
+  Wire.print("^");
+  Wire.print(hStep);
   Wire.print("#");
   Wire.endTransmission();
 }
