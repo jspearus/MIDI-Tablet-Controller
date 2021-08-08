@@ -152,12 +152,40 @@ void leftClick(){
 void serialEvent(){        //PC Com
   while (Serial.available()) {  
     Serial_Com= Serial.readStringUntil('\n');
+    Serial.println(Serial_Com);
 
-    if (Serial_Com == "all off"){
+    if (Serial_Com == "alloff"){
+      Serial.print("All Off ");
        if (BluMode == false){
+         Serial.println("- USB");
           moveCursor(63, 23, 3); // move(x,y,v)
         }
         else if(BluMode == true){
+          Serial.println("- bluetooth");
+          BluetoothOut(2, 3, 67, 24, 6);  // Bluetooth(x, y, xStep, yStep, hStep)
+        }
+        note = 0;
+    }
+    else if (Serial_Com == "full"){
+      Serial.print("Full ");
+       if (BluMode == false){
+         Serial.println("- USB");
+          moveCursor(15, 45, 3);  // move(x,y,v)
+        }
+        else if(BluMode == true){
+          Serial.println("- bluetooth");
+          BluetoothOut(2, 3, 22, 45, 6);  // Bluetooth(x, y, xStep, yStep, hStep)
+        }
+        note = 0;
+    }
+    else if (Serial_Com == "worship"){
+      Serial.print("Worship ");
+       if (BluMode == false){
+         Serial.println("- USB");
+          moveCursor(63, 47, 3); // move(x,y,v)
+        }
+        else if(BluMode == true){
+          Serial.println("- bluetooth");
           BluetoothOut(2, 3, 67, 24, 6);  // Bluetooth(x, y, xStep, yStep, hStep)
         }
         note = 0;
