@@ -11,6 +11,7 @@ MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
 const int Channel = 2;
 const int Full_note = 75;
 const int Worship_note = 65;
+const int All_Off = 70;
 const int Velocity_thresh = 90;
 //###########################################
 
@@ -65,7 +66,7 @@ void loop() {
       moveCursor(15, 45, 3);  // move(x,y,v)
     }
     else if(BluMode == true){
-      BluetoothOut(5, 15, 15, 10, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
+      BluetoothOut(5, 15, 9, 9, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
     }
     note = 0;
   }
@@ -76,7 +77,17 @@ void loop() {
       moveCursor(63, 47, 3); // move(x,y,v)
     }
     else if(BluMode == true){
-      BluetoothOut(21, 16, 15, 10, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
+      BluetoothOut(21, 16, 9, 9, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
+    }
+    note = 0;
+  }
+  else if(channel == Channel && note == All_Off && velocity >= Velocity_thresh){            
+    Serial.println("All Off");
+    if (BluMode == false){
+      moveCursor(63, 32, 3); // move(x,y,v)
+    }
+    else if(BluMode == true){
+      BluetoothOut(21, 7, 9, 9, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
     }
     note = 0;
   }
