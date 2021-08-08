@@ -66,7 +66,7 @@ void loop() {
       moveCursor(15, 45, 3);  // move(x,y,v)
     }
     else if(BluMode == true){
-      BluetoothOut(5, 15, 9, 9, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
+      BluetoothOut(10, 28, 9, 9, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
     }
     note = 0;
   }
@@ -77,7 +77,7 @@ void loop() {
       moveCursor(63, 47, 3); // move(x,y,v)
     }
     else if(BluMode == true){
-      BluetoothOut(21, 16, 9, 9, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
+      BluetoothOut(40, 28, 9, 9, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
     }
     note = 0;
   }
@@ -87,7 +87,7 @@ void loop() {
       moveCursor(63, 32, 3); // move(x,y,v)
     }
     else if(BluMode == true){
-      BluetoothOut(21, 7, 9, 9, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
+      BluetoothOut(40, 15, 9, 9, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
     }
     note = 0;
   }
