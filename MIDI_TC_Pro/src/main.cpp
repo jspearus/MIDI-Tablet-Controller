@@ -66,7 +66,7 @@ void loop() {
       moveCursor(15, 45, 3);  // move(x,y,v)
     }
     else if(BluMode == true){
-      BluetoothOut(10, 28, 9, 9, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
+      BluetoothOut(2, 3, 22, 45, 6);  // Bluetooth(x, y, xStep, yStep, hStep)
     }
     note = 0;
   }
@@ -77,17 +77,17 @@ void loop() {
       moveCursor(63, 47, 3); // move(x,y,v)
     }
     else if(BluMode == true){
-      BluetoothOut(40, 28, 9, 9, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
+      BluetoothOut(2, 3, 67, 45, 6);  // Bluetooth(x, y, xStep, yStep, hStep)
     }
     note = 0;
   }
   else if(channel == Channel && note == All_Off && velocity >= Velocity_thresh){            
     Serial.println("All Off");
     if (BluMode == false){
-      moveCursor(63, 32, 3); // move(x,y,v)
+      moveCursor(63, 23, 3); // move(x,y,v)
     }
     else if(BluMode == true){
-      BluetoothOut(40, 15, 9, 9, 10);  // Bluetooth(x, y, xStep, yStep, hStep)
+      BluetoothOut(2, 3, 67, 24, 6);  // Bluetooth(x, y, xStep, yStep, hStep)
     }
     note = 0;
   }
