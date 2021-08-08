@@ -18,6 +18,8 @@ const int Velocity_thresh = 90;
 //Variables
 int type, note, velocity, channel;
 
+String Serial_Com = "";
+
 bool BluMode = true;
 //#######################################
 
@@ -145,4 +147,21 @@ void leftClick(){
   Mouse.press();
   delay(100);
   Mouse.release();
+}
+
+void serialEvent(){        //PC Com
+  while (Serial.available()) {  
+    Serial_Com= Serial.readStringUntil('\n');
+
+    if (Serial_Com == "all off"){
+       if (BluMode == false){
+          moveCursor(63, 23, 3); // move(x,y,v)
+        }
+        else if(BluMode == true){
+          BluetoothOut(2, 3, 67, 24, 6);  // Bluetooth(x, y, xStep, yStep, hStep)
+        }
+        note = 0;
+    }
+
+  }
 }
