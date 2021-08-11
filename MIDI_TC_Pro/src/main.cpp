@@ -26,15 +26,18 @@ bool BluMode = true;
 // Function Declarations #############################
 void printData();
 void BluetoothOut(int x, int y, int xStep, int yStep, int hStep);
+void BluOut(String command);
 void home();
 void moveCursor(int x, int y, int v);
 void leftClick();
 void printData();
+void serialEvent();
 // #######################################
 
 void setup() {
   MIDI.begin(MIDI_CHANNEL_OMNI);
   Wire.begin(1);
+  Wire.setClock(400000);
   Serial.begin(57600);
   delay(3500);
   Serial.println("MIDI-TC pro Ready...");
@@ -63,34 +66,37 @@ void loop() {
   }
   //note = command for "full"
   if(channel == Channel && note == Full_note && velocity >= Velocity_thresh ){            
-    Serial.println("Full");
     if (BluMode == false){
       moveCursor(15, 45, 3);  // move(x,y,v)
     }
     else if(BluMode == true){
-      BluetoothOut(2, 3, 22, 45, 6);  // Bluetooth(x, y, xStep, yStep, hStep)
+      //BluetoothOut(2, 2, 22, 56, 8);  // Bluetooth(x, y, xStep, yStep, hStep)
+      BluOut("full");
     }
+    Serial.println("Full");
     note = 0;
   }
   //note = command for "Worship"
   else if(channel == Channel && note == Worship_note && velocity >= Velocity_thresh){            
-    Serial.println("Worship");
     if (BluMode == false){
       moveCursor(63, 47, 3); // move(x,y,v)
     }
     else if(BluMode == true){
-      BluetoothOut(2, 3, 67, 45, 6);  // Bluetooth(x, y, xStep, yStep, hStep)
+      //BluetoothOut(2, 2, 67, 55, 8);  // Bluetooth(x, y, xStep, yStep, hStep)
+      BluOut("worship");
     }
+    Serial.println("Worship");
     note = 0;
   }
   else if(channel == Channel && note == All_Off && velocity >= Velocity_thresh){            
-    Serial.println("All Off");
     if (BluMode == false){
       moveCursor(63, 23, 3); // move(x,y,v)
     }
     else if(BluMode == true){
-      BluetoothOut(2, 3, 67, 24, 6);  // Bluetooth(x, y, xStep, yStep, hStep)
+      //BluetoothOut(2, 2, 67, 31, 8);  // Bluetooth(x, y, xStep, yStep, hStep)
+      BluOut("alloff");
     }
+    Serial.println("All Off");
     note = 0;
   }
 }
@@ -111,15 +117,16 @@ void printData(){
 
 void BluetoothOut(int x, int y, int xStep, int yStep, int hStep){
   Wire.beginTransmission(9);
-  Wire.print(x);
-  Wire.print("@");
-  Wire.print(y);
-  Wire.print("-");
-  Wire.print(xStep);
-  Wire.print("&");
-  Wire.print(yStep);
-  Wire.print("^");
-  Wire.print(hStep);
+  Wire.print(x); Wire.print("@");
+  Wire.print(y); Wire.print("-");
+  Wire.print(xStep); Wire.print("&");
+  Wire.print(yStep); Wire.print("^");
+  Wire.print(hStep); Wire.print("#");
+  Wire.endTransmission();
+}
+void BluOut(String command){
+  Wire.beginTransmission(9);
+  Wire.print(command);
   Wire.print("#");
   Wire.endTransmission();
 }
@@ -133,63 +140,21 @@ void home(){
 
 void moveCursor(int x, int y, int v){
   home();
+  delay(10);
   for (int i=0; i<x; i++){    // move Horizontal - X AXIS
     Mouse.move(v, 0);
   } 
   for (int i=0; i<y; i++) {   // Move Verticl - Y AXIS
     Mouse.move(0, v);
   }
+  delay(10);
   leftClick();
   note = 0;
 }
 
 void leftClick(){
   Mouse.press();
-  delay(100);
+  delay(50);
   Mouse.release();
 }
 
-void serialEvent(){        //PC Com
-  while (Serial.available()) {  
-    Serial_Com= Serial.readStringUntil('\n');
-    Serial.println(Serial_Com);
-
-    if (Serial_Com == "alloff"){
-      Serial.print("All Off ");
-       if (BluMode == false){
-         Serial.println("- USB");
-          moveCursor(63, 23, 3); // move(x,y,v)
-        }
-        else if(BluMode == true){
-          Serial.println("- bluetooth");
-          BluetoothOut(2, 3, 67, 24, 6);  // Bluetooth(x, y, xStep, yStep, hStep)
-        }
-        note = 0;
-    }
-    else if (Serial_Com == "full"){
-      Serial.print("Full ");
-       if (BluMode == false){
-         Serial.println("- USB");
-          moveCursor(15, 45, 3);  // move(x,y,v)
-        }
-        else if(BluMode == true){
-          Serial.println("- bluetooth");
-          BluetoothOut(2, 3, 22, 45, 6);  // Bluetooth(x, y, xStep, yStep, hStep)
-        }
-        note = 0;
-    }
-    else if (Serial_Com == "worship"){
-      Serial.print("Worship ");
-       if (BluMode == false){
-         Serial.println("- USB");
-          moveCursor(63, 47, 3); // move(x,y,v)
-        }
-        else if(BluMode == true){
-          Serial.println("- bluetooth");
-          BluetoothOut(2, 3, 67, 24, 6);  // Bluetooth(x, y, xStep, yStep, hStep)
-        }
-        note = 0;
-    }
-
-  }
-}
